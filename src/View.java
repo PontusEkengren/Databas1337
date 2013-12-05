@@ -1,7 +1,22 @@
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.border.LineBorder;
+
+import java.awt.Color;
+
+import javax.swing.JScrollPane;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
-public class Model extends JFrame {
+public class View extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -29,7 +44,7 @@ public class Model extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Model frame = new Model();
+					View frame = new View();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +56,7 @@ public class Model extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Model() {
+	public View() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
