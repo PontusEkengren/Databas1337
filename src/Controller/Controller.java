@@ -36,6 +36,14 @@ public class Controller {
 			// "INSERT INTO Lab_1_Music(artist, genre, rating) VALUES('Test1', '2', 7)");
 			// theView = new View();
 			// theView.setVisible(true);
+			try {
+				insertAll(con, "SELECT * FROM Lab_1_Music");
+				theView.initView();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		} catch (Exception e) {
 			javax.swing.JOptionPane.showMessageDialog(null, "Database error, "
 					+ e.toString());
@@ -48,12 +56,11 @@ public class Controller {
 			} catch (SQLException e) {
 			}
 		}
-		
+
 		// Start preforming shit that matters:
-		
+
 		this.theView.printAnything("NU FUNKAR DET!");
-		
-		
+
 	}
 
 	public static void addArtist(Connection con, String query)
@@ -65,12 +72,35 @@ public class Controller {
 			stmt = con.createStatement();
 			stmt.executeUpdate(query);
 			System.out.println("added");
-
 		} finally {
 			if (stmt != null) {
 				stmt.close();
 			}
 		}
+	}
+
+	public void insertAll(Connection con, String query) throws SQLException {
+		Statement stmt = null;
+		try {
+			// Execute the SQL statement
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			ResultSetMetaData metaData = rs.getMetaData();
+			int ccount = metaData.getColumnCount();
+			int tmp = 0;
+			while (rs.next()) {
+				tmp++;
+				for (int c = 1; c <= ccount; c++) {
+					// System.out.print(rs.getObject(c) + "\t");
+					theView.insertAll(tmp, rs.getObject(c), c);
+				}
+			}
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+
 	}
 
 	public static void executeQuery(Connection con, String query)
@@ -102,12 +132,14 @@ public class Controller {
 
 				// int temp = 0;
 				// frame.insertRow(rs.getObject(1));
-				// for(int c = 1; c <= ccount; c++) {
-				// System.out.print(rs.getObject(c) + "\t");
-				// System.out.println(rs.getObject(4));
-				
-
-				// }
+				/*
+				 * for(int c = 1; c <= ccount; c++) {
+				 * System.out.print(rs.getObject(c) + "\t"); //
+				 * System.out.println(rs.getObject(4));
+				 * 
+				 * 
+				 * }
+				 */
 				System.out.println();
 				// temp++;
 			}

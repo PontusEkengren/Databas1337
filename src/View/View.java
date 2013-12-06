@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
@@ -17,12 +17,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
+@SuppressWarnings("serial")
 public class View extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 							//{ "1", "Avicii", "House", "5" }
-	Object rowData[][] = {{"","","",""}};
+	Object[][] rowData = {{"","","",""}};
 	
 	Object columnNames[] = {"1", "2", "3", "4"};
 	
@@ -78,31 +79,39 @@ public class View extends JFrame {
 		});
 		panel_2.add(btnNewButton_2);
 		
+		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		table = new JTable(rowData, columnNames);
 		scrollPane.setViewportView(table);
 		
-
 	}
+	
+	public void initView(){
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+		table = new JTable((Object[][]) rowData, columnNames);
+		scrollPane.setViewportView(table);
+	}
+	
 	public void printAnything(String anything){
 		System.out.println(anything);
 		//System.out.println("HEJ TEST");
 	}
+	
 	public void setColumns(int c, String columnName) {
 		// TODO Auto-generated method stub
 		columnNames[c] = columnName;
 	}
+	
 //(Object object,int c
-	public void insertRow(int tmp, String temp) {
+	public void insertAll(int row, Object object,int column) {
 		// TODO Auto-generated method stub
-		//Object object = new Object;
-		System.out.println("object: "+ temp);
+		// Object object = new Object;
+		Object[][] rowData = new Object[80][40];
+		rowData[row][column]=object +  "\t";
+		System.out.println(rowData[row][column].toString());
 		
-/*
-		rowData[c][1]=object;
-
-		this.update(getGraphics());*/
 	}
 
 }
