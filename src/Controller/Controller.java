@@ -58,8 +58,9 @@ public class Controller {
 		}
 
 		// Start preforming shit that matters:
-
-		this.theView.printAnything("NU FUNKAR DET!");
+		this.theView.setColumns(3, "Shit");
+		this.theView.printAnything("[DEBUG] NU FUNKAR DET!");
+		this.theView.updateView();
 
 	}
 

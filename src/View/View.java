@@ -5,9 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 
@@ -22,9 +22,12 @@ public class View extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-							//{ "1", "Avicii", "House", "5" }
-	Object[][] rowData = {{"","","",""}};
+	private DefaultTableModel tableModel;
 	
+	//{ "1", "Avicii", "House", "5" }
+	Object[][] rowData = {{"asd","sad","sda","das"}};
+	
+						//	 0	  1	   2    3
 	Object columnNames[] = {"1", "2", "3", "4"};
 	
 	/**
@@ -72,9 +75,17 @@ public class View extends JFrame {
 		});
 		panel_2.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Rate");
+		JButton btnNewButton_2 = new JButton("Update");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				for(int i=0; i<4; i++)
+				{
+					insertRow(0,i, new Object[]{"Hej"});
+					tableModel.fireTableDataChanged();
+					tableModel.fireTableStructureChanged();
+					tableModel.fireTableCellUpdated(0, 0);
+				}
+				
 			}
 		});
 		panel_2.add(btnNewButton_2);
@@ -90,8 +101,14 @@ public class View extends JFrame {
 	public void initView(){
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		table = new JTable((Object[][]) rowData, columnNames);
+		tableModel = new DefaultTableModel((Object[][]) rowData, columnNames);
+		table.setModel(tableModel);
+		//table = new JTable((Object[][]) rowData, columnNames);
 		scrollPane.setViewportView(table);
+		tableModel.fireTableDataChanged();
+	}
+	public void updateView(){
+		tableModel.fireTableDataChanged();
 	}
 	
 	public void printAnything(String anything){
@@ -102,6 +119,15 @@ public class View extends JFrame {
 	public void setColumns(int c, String columnName) {
 		// TODO Auto-generated method stub
 		columnNames[c] = columnName;
+		columnNames[0] = new Object[]{"hej"};
+		tableModel.fireTableDataChanged();
+		tableModel.fireTableDataChanged();
+		tableModel.fireTableStructureChanged();
+		tableModel.fireTableCellUpdated(0, 0);
+		repaint();
+	}
+	public void insertRow(int row, int column, Object row_data){
+		rowData[row][column] = row_data;
 	}
 	
 //(Object object,int c
